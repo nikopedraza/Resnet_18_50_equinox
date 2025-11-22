@@ -58,7 +58,7 @@ def train_step(model, state, opt_state,optimizer, x, y):
         has_aux=True,
     )(model, state, x, y)
 
-    updates, opt_state = optimizer.update(grads, opt_state, params=model,value=loss)
+    updates, opt_state = optimizer.update(grads, opt_state, params=model)
     model = eqx.apply_updates(model, updates)
 
     return model, new_state, opt_state, loss
@@ -206,7 +206,7 @@ def plot_training_and_validation(steps, train_losses, epochs, val_losses, val_ac
 
     # 1) training loss over steps
     plt.figure()
-    plt.plot(steps[:,:,1000], train_losses[:,:,1000], c="g")
+    plt.plot(steps, train_losses, c="g")
     plt.xlabel("Step")
     plt.ylabel("Train Loss")
     plt.title(f"{Name}: Training Loss vs Step")
